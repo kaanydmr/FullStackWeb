@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        .notice-detail {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .notice-detail h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .notice-detail h2 {
+            font-size: 1.5em;
+            margin-top: 30px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            color: #555;
+        }
+
+        .notice-detail p {
+            font-size: 1em;
+            margin: 10px 0;
+            color: #666;
+        }
+
+        .notice-detail .details {
+            margin-bottom: 20px;
+        }
+
+        .notice-detail .details strong {
+            display: inline-block;
+            width: 200px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .notice-detail .details .value {
+            display: inline-block;
+            color: #555;
+        }
+
+        .notice-detail .warrant-item {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+
+        .notice-detail .warrant-item p {
+            margin: 5px 0;
+        }
+
+        .notice-detail img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-top: 10px;
+            display: block; /* Ensures the image is treated as a block element */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .notice-detail .large-image {
+            width: 100%; /* Adjust this value to make the image bigger */
+            max-width: 800px; /* Maximum width for the image */
+        }
+
+        .notice-detail .thumbnail-image {
+            width: 80%; /* Adjust this value to make the image bigger */
+            max-width: 300px; /* Maximum width for the thumbnail */
+        }
+    </style>
+
+    <div class="notice-detail">
+        {% if noti.thumbnail_url %}
+            <h1>Thumbnail</h1>
+            <img src="{{ noti.thumbnail_url }}" alt="Thumbnail related to notice" class="thumbnail-image">
+        {% endif %}
+        <h2>Notice Detail</h2>
+        <div class="details">
+            <p><strong>Forename:</strong> <span class="value">{{ noti.forename }}</span></p>
+            <p><strong>Name:</strong> <span class="value">{{ noti.name }}</span></p>
+            <p><strong>Date of Birth:</strong> <span class="value">{{ noti.date_of_birth }}</span></p>
+            <p><strong>Place of Birth:</strong> <span class="value">{{ noti.place_of_birth }}</span></p>
+            <p><strong>Nationalities:</strong> <span class="value">{{ noti.nationalities|join:", " }}</span></p>
+            <p><strong>Sex:</strong> <span class="value">{{ noti.sex_id }}</span></p>
+            <p><strong>Height:</strong> <span class="value">{{ noti.height }} m</span></p>
+            <p><strong>Weight:</strong> <span class="value">{{ noti.weight }} kg</span></p>
+            <p><strong>Hair Color:</strong> <span class="value">{{ noti.hairs_id|join:", " }}</span></p>
+            <p><strong>Eye Color:</strong> <span class="value">{{ noti.eyes_colors_id|join:", " }}</span></p>
+            <p><strong>Languages Spoken:</strong> <span class="value">{{ noti.languages_spoken_ids|join:", " }}</span></p>
+            <p><strong>Distinguishing Marks:</strong> <span class="value">{{ noti.distinguishing_marks }}</span></p>
+        </div>
+        
+        
+
+        <h2>Arrest Warrants</h2>
+        {% for warrant in noti.arrest_warrants %}
+            <div class="warrant-item">
+                <p><strong>Charge:</strong> {{ warrant.charge }}</p>
+                <p><strong>Issuing Country:</strong> {{ warrant.issuing_country_id }}</p>
+                <p><strong>Charge Translation:</strong> {{ warrant.charge_translation }}</p>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock content %}

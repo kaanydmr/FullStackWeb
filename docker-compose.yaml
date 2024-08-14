@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  selenium:
+    image: seleniarm/standalone-chromium
+    ports:
+      - "4444:4444"
+    environment:
+      - SE_VNC_NO_PASSWORD=true
+    shm_size: 2g  
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      
+  data-scraper:
+    build:
+      context: ./Get_Data
+    depends_on:
+      - rabbitmq
+      - selenium
+    environment:
+      - SELENIUM_SERVER_URL=http://selenium:4444/wd/hub
+    networks:
+      - default 
+    command: ["python", "main.py"]
+
+  web:
+    build:
+      context: ./Django
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+    ports:
+      - "8000:8000"
+    volumes:
+      - django-database:/app
+
+  data-consumer:
+    build:
+      context: ./Django
+      dockerfile: Dockerfile
+    command: ["./consume.py"]
+    depends_on:
+      - rabbitmq
+      - data-scraper
+    volumes:
+      - django-database:/app
+
+volumes:
+  django-database:
+    driver: local
