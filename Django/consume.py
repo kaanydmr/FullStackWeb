@@ -2,7 +2,10 @@ import os
 import django
 import pika
 import json
+import time
 from datetime import datetime
+
+time.sleep(5)
 
 # Set the DJANGO_SETTINGS_MODULE environment variable
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'interpolData.settings')
