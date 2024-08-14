@@ -5,7 +5,7 @@ import json
 import time
 from datetime import datetime
 
-time.sleep(5)
+time.sleep(10)
 
 # Set the DJANGO_SETTINGS_MODULE environment variable
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'interpolData.settings')
