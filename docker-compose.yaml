@@ -14,24 +14,37 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-      
+
   data-scraper:
     build:
       context: ./Get_Data
     depends_on:
       - rabbitmq
       - selenium
+      - migrations
     environment:
       - SELENIUM_SERVER_URL=http://selenium:4444/wd/hub
     networks:
       - default 
     command: ["python", "main.py"]
 
+  migrations:
+    build:
+      context: ./Django
+      dockerfile: Dockerfile
+    command: ["./manage.py", "migrate"]
+    depends_on:
+      - rabbitmq
+      - selenium
+    volumes:
+      - django-database:/app
+
   web:
     build:
       context: ./Django
       dockerfile: Dockerfile
     depends_on:
+      - migrations
       - rabbitmq
     ports:
       - "8000:8000"
@@ -46,6 +59,7 @@ services:
     depends_on:
       - rabbitmq
       - data-scraper
+      - migrations
     volumes:
       - django-database:/app
 
