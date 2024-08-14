@@ -7,5 +7,5 @@ Kullanmak için:
 Durdrumak için:
 1- docker-compose down
 
-Selenium ARM için olan versiyon x86 de çalışmayabilir
+Selenium ARM için olan versiyon, x86 de çalışmayabilir
 
