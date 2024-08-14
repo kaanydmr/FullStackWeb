@@ -10,15 +10,8 @@ from django.db.models.functions import TruncSecond
 def interpol(request):
     all_notices = Notice.objects.all()
 
-    latest_time = Notice.objects.latest('updated_at').updated_at
-    recent_notices = Notice.objects.filter(updated_at=latest_time)
-
-    # Format the datetime to a string format for comparison in the template
-    latest_time_str = latest_time.strftime('%Y-%m-%d %H:%M:%S')
-
     context = {
         "notices": all_notices,
-        "latest_time": latest_time_str,  # Pass the formatted datetime string
     }
     
     return render(request, "interpolApp/interpolWeb.html", context=context)
