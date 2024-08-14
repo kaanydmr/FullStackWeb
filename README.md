@@ -1,7 +1,7 @@
 Çalıştırmadan önce Docker desktop açık olmalı
 
 Kullanmak için:
-1- docker-compose buşd
+1- docker-compose buid
 2- docker-compose up
 
 Durdrumak için:
