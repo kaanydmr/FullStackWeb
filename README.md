@@ -1,11 +1,12 @@
-Çalıştırmadan önce Docker desktop açık olmalı
+Başlamadan Önce:
+Docker Desktop’ın açık olduğundan emin olun.
 
-Kullanmak için:
-1- docker-compose build
-2- docker-compose up
+Kullanmak İçin:
+Build: docker-compose build
+Başlat: docker-compose up
 
-Durdrumak için:
-1- docker-compose down
+Durdurmak İçin:
+Durdur: docker-compose down
 
-Selenium ARM için olan versiyon, x86 de çalışmayabilir
-
+Not:
+ARM tabanlı sistemler için üretilmiş Selenium sürümü, x86 tabanlı sistemlerde çalışmayabilir.
